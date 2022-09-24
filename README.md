@@ -18,3 +18,6 @@
 # Validate User
 - curl -X POST "http://localhost:8080/v1/users/validate" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"name\": \"teste\", \"password\": \"123456\"}"
 
+# Search Signature
+- curl -X GET "http://localhost:8080/v1/signatures?cep=06190001&product=Celular%20Moto%20X" -H "accept: */*"
+

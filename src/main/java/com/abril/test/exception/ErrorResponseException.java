@@ -1,4 +1,4 @@
-package com.abril.test.domain;
+package com.abril.test.exception;
 
 import org.springframework.http.HttpStatus;
 

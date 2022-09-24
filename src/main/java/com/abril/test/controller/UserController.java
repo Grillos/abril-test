@@ -16,8 +16,11 @@ import com.abril.test.request.UserRequest;
 import com.abril.test.response.UserResponse;
 import com.abril.test.service.UserService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/v1/users")
+@Api(tags = "User Controller")
 public class UserController {
 
 	@Autowired

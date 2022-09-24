@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.abril.test.domain.ErrorResponseException;
-import com.abril.test.domain.Response;
 import com.abril.test.domain.User;
 import com.abril.test.enumaration.ExceptionEnum;
+import com.abril.test.exception.ErrorResponseException;
+import com.abril.test.exception.Response;
 import com.abril.test.repository.UserRepository;
 import com.abril.test.request.UserRequest;
 import com.abril.test.response.UserResponse;
@@ -20,10 +20,10 @@ import com.abril.test.response.UserResponse;
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
 
 	public UserResponse validate(UserRequest request) {
-		User user = userRepository.findByNameAndPassword(request.getName(), DigestUtils.sha256Hex(request.getPassword())).orElseThrow(() -> new ErrorResponseException(
+		User user = repository.findByNameAndPassword(request.getName(), DigestUtils.sha256Hex(request.getPassword())).orElseThrow(() -> new ErrorResponseException(
 				Response.builder()
 				.code(ExceptionEnum.NOT_FOUND.getId())
 				.description(ExceptionEnum.NOT_FOUND.getDescription())
@@ -38,7 +38,7 @@ public class UserService {
 	
 	public List<UserResponse> create(List<UserRequest> users) {
 		
-		List<User> usersSaved = userRepository.saveAll(users
+		List<User> usersSaved = repository.saveAll(users
 				.stream()
 				.map(user-> User
 						.builder()

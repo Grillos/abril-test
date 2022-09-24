@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.abril.test.domain.ErrorResponseException;
-import com.abril.test.domain.Response;
 import com.abril.test.enumaration.ExceptionEnum;
+import com.abril.test.exception.ErrorResponseException;
+import com.abril.test.exception.Response;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
