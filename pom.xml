@@ -52,15 +52,16 @@
             <version>5.5.10</version>
         </dependency>
         <dependency>
-            <groupId>com.openhtmltopdf</groupId>
-            <artifactId>openhtmltopdf-core</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.openhtmltopdf</groupId>
-            <artifactId>openhtmltopdf-pdfbox</artifactId>
-            <version>1.0.6</version>
-        </dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>io</artifactId>
+		    <version>7.0.0</version>
+		</dependency>
+       <dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>layout</artifactId>
+		    <version>7.0.0</version>
+		</dependency>
+
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox-tools</artifactId>

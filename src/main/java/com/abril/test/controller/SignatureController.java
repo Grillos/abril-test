@@ -1,14 +1,18 @@
 package com.abril.test.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,20 +39,21 @@ public class SignatureController {
     	List<Signature> signatures = service.find(request);
     	return (signatures != null) ? new ResponseEntity<>(signatures, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-	
-	@RequestMapping(value = "/download", method = RequestMethod.GET)
-    public HttpEntity<byte[]> download() throws IOException {
+    
+    @RequestMapping(path = "/download", method = RequestMethod.GET)
+    public ResponseEntity<Resource> download(String param) throws IOException {
+    	HttpHeaders headers = new HttpHeaders();
+        
+        service.generatePdf("teste_img_in_pdf_abril");
+    	File file = new File("/tmp/teste_img_in_pdf_abril.pdf");
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
 
-    	service.generatePdf();
-        byte[] arquivo = Files.readAllBytes( Paths.get("/tmp/EQUIPEDELIMPEZA.pdf") );
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-
-        httpHeaders.add("Content-Disposition", "attachment;filename=\"meu-arquivo.pdf\"");
-
-        HttpEntity<byte[]> entity = new HttpEntity<byte[]>( arquivo, httpHeaders);
-
-        return entity;
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
     
     
