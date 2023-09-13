@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abril.test.request.PdfRequest;
@@ -18,12 +19,16 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Service
 public class PdfService {
 	
-
+	@Autowired
+	private GoogleDriveService googleDriveService;
 	
 	public void generatePdfFromImages(List<PdfRequest> request) {
-		try {				
-				generatePDFFromImage(request);
-		} catch (IOException | DocumentException e) {
+		try {	
+			googleDriveService.searchFile();
+			//googleDriveService.downloadFile("abril01");
+			//googleDriveService.listFolder();
+			//generatePDFFromImage(request);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
